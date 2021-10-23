@@ -6,7 +6,6 @@ const grid = document.querySelector('.date-picker-grid-dates')
 const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 const datePickerViewDate = new Date()
 const selectedDate = new Date()
-
 updateDOM()
 
 addEventListener('click', e => {
@@ -23,21 +22,28 @@ addEventListener('click', e => {
 addEventListener('click', e => {
   if (!e.target.matches('.date')) return
   const selected = document.querySelector('.selected')
-  e.target.classList.add('selected')
   if (selected) selected.classList.remove('selected')
+  e.target.classList.add('selected')
   const dateArray = e.target.dataset.date.split(',')
-  selectedDate.setFullYear(dateArray[0])
-  selectedDate.setMonth(dateArray[1])
-  selectedDate.setDate(dateArray[2])
-  console.log(selectedDate, datePickerViewDate)
+  setDateFromArray(selectedDate, dateArray)
   updateButtonText()
   if (e.target.matches('.date-picker-other-month-date')) {
-    datePickerViewDate.setFullYear(dateArray[0])
-    datePickerViewDate.setMonth(dateArray[1])
-    datePickerViewDate.setDate(dateArray[2])
+    setDateFromArray(datePickerViewDate, dateArray)
     updateDatePicker()
   }
 })
+
+function setDateFromArray(date, dateArray) {
+  date.setFullYear(dateArray[0])
+  date.setMonth(dateArray[1])
+  date.setDate(dateArray[2])
+}
+
+function setDateEqual(sourceDate, targetDate) {
+  target.setFullYear(source.getFullYear())
+  target.setMonth(source.getMonth())
+  target.setDate(source.getDate())
+}
 
 function changeMonth(advance) {
   datePickerViewDate.setMonth(datePickerViewDate.getMonth() + advance)
@@ -57,6 +63,14 @@ function updateCurrentMonth() {
   currentMonth.innerText = formatCurrentMonth(datePickerViewDate)
 }
 
+function getDateFrom(date) {
+  let dt = new Date()
+  dt.setFullYear(date.getFullYear())
+  dt.setMonth(date.getMonth())
+  dt.setDate(date.getDate())
+  return dt
+}
+
 function getDaysFromPreviousMonth() {
   let currentDay = getFirstWeekdayOfCurrentMonth()
   let currentDate = getFirstOfCurrentMonth()
@@ -64,11 +78,7 @@ function getDaysFromPreviousMonth() {
   while (currentDay > 0) {
     currentDay--
     currentDate.setDate(currentDate.getDate() - 1)
-    let date = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth(),
-      currentDate.getDate()
-    )
+    let date = getDateFrom(currentDate)
     daysFromPreviousMonth.unshift(date)
   }
   return daysFromPreviousMonth
@@ -79,11 +89,7 @@ function getDaysFromCurrentMonth() {
   const month = currentDate.getMonth()
   const daysFromMonth = []
   while (currentDate.getMonth() === month) {
-    let date = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth(),
-      currentDate.getDate()
-    )
+    let date = getDateFrom(currentDate)
     daysFromMonth.push(date)
     currentDate.setDate(currentDate.getDate() + 1)
   }
@@ -96,11 +102,7 @@ function getDaysFromNextMonth() {
   const daysFromNextMonth = []
   let currentDay = getDay(currentDate)
   while (currentDay <= 6) {
-    let date = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth(),
-      currentDate.getDate()
-    )
+    let date = getDateFrom(currentDate)
     daysFromNextMonth.push(date)
     currentDate.setDate(currentDate.getDate() + 1)
     currentDay++
