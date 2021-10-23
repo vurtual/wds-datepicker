@@ -38,7 +38,6 @@ addEventListener('click', e => {
     updateDatePicker()
   }
 })
-//5390-ABDA
 
 function changeMonth(advance) {
   datePickerViewDate.setMonth(datePickerViewDate.getMonth() + advance)
