@@ -10,6 +10,8 @@ updateDOM()
 
 addEventListener('click', e => {
   if (!e.target.matches('.date-picker-button')) return
+  setDateEqual(selectedDate, datePickerViewDate)
+  updateDatePicker()
   datepicker.classList.toggle('show')
 })
 
@@ -45,7 +47,7 @@ function setDateFromArray(date, dateArray) {
   date.setDate(dateArray[2])
 }
 
-function setDateEqual(sourceDate, targetDate) {
+function setDateEqual(source, target) {
   target.setFullYear(source.getFullYear())
   target.setMonth(source.getMonth())
   target.setDate(source.getDate())
