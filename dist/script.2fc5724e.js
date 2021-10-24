@@ -22034,6 +22034,12 @@ addEventListener('click', function (e) {
 });
 
 addEventListener('click', function (e) {
+  if (!e.target.matches('.year-button')) return;
+  if (e.target.matches('.prev-year-button')) changeYear(-1);
+  if (e.target.matches('.next-year-button')) changeYear(1);
+});
+
+addEventListener('click', function (e) {
   if (!e.target.matches('.date')) return;
   var selected = document.querySelector('.selected');
   if (selected) selected.classList.remove('selected');
@@ -22061,7 +22067,10 @@ function setDateEqual(sourceDate, targetDate) {
 
 function changeMonth(advance) {
   datePickerViewDate.setMonth(datePickerViewDate.getMonth() + advance);
-  console.log(selectedDate, datePickerViewDate);
+  updateDatePicker();
+}
+function changeYear(advance) {
+  datePickerViewDate.setFullYear(datePickerViewDate.getFullYear() + advance);
   updateDatePicker();
 }
 
@@ -22180,7 +22189,7 @@ function updateDOM() {
   updateButtonText();
   updateDatePicker();
 }
-},{"date-fns":10}],525:[function(require,module,exports) {
+},{"date-fns":10}],282:[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -22209,7 +22218,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '56382' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '62790' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -22350,5 +22359,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[525,5], null)
+},{}]},{},[282,5], null)
 //# sourceMappingURL=/script.2fc5724e.map

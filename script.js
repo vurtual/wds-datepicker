@@ -20,6 +20,12 @@ addEventListener('click', e => {
 })
 
 addEventListener('click', e => {
+  if (!e.target.matches('.year-button')) return
+  if (e.target.matches('.prev-year-button')) changeYear(-1)
+  if (e.target.matches('.next-year-button')) changeYear(1)
+})
+
+addEventListener('click', e => {
   if (!e.target.matches('.date')) return
   const selected = document.querySelector('.selected')
   if (selected) selected.classList.remove('selected')
@@ -47,7 +53,10 @@ function setDateEqual(sourceDate, targetDate) {
 
 function changeMonth(advance) {
   datePickerViewDate.setMonth(datePickerViewDate.getMonth() + advance)
-  console.log(selectedDate, datePickerViewDate)
+  updateDatePicker()
+}
+function changeYear(advance) {
+  datePickerViewDate.setFullYear(datePickerViewDate.getFullYear() + advance)
   updateDatePicker()
 }
 
